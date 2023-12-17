@@ -16,8 +16,11 @@ spec:
       run: nginx
       type: frontend
   replicas: 5
+  replicas: 5
   strategy:
     rollingUpdate:
+      maxSurge: 2 #25%
+      maxUnavailable: 2 #25%
       maxSurge: 2 #25%
       maxUnavailable: 2 #25%
     type: RollingUpdate
@@ -47,27 +50,27 @@ spec:
             memory: 500Mi
         
 
-# --- 
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: jjtech-pod
-#   namespace: application
-#   labels:
-#     app: myapp
-#     run: nginx
-# spec:
-#  containers:
-#  - name: myapp
-#     image: nginx
-#     resources:
-#       limits:
-#         cpu: 200m
-#         memory: 500Mi
-#         requests:
-#         cpu: 100m
-#         memory: 200Mi
-#     ports:
-#     - containerPort:  80
-#       name:  http
+--- 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jjtech-pod
+  namespace: application
+  labels:
+    app: myapp
+    run: nginx
+spec:
+  containers:
+  - name: myapp
+    image: nginx
+    resources:
+      limits:
+        cpu: 200m
+        memory: 500Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    ports:
+    - containerPort:  80
+      name:  http
         
